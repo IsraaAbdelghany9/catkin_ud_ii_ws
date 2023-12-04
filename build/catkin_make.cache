@@ -1,0 +1,2 @@
+ros_course_part2:turtlebot3_msgs
+-DCATKIN_DEVEL_PREFIX=/home/israa/catkin_ud_ii_ws/devel -DCMAKE_INSTALL_PREFIX=/home/israa/catkin_ud_ii_ws/install -G Unix Makefiles
