@@ -47,7 +47,7 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=
+CMAKE_BUILD_TYPE:STRING=RelWithDebInfo
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -483,7 +483,7 @@ gtest_main_LIB_DEPENDS:STATIC=general;gtest;
 interactive_markers_DIR:PATH=/opt/ros/noetic/share/interactive_markers/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/noetic/lib/libtf2.so
+lib:FILEPATH=/opt/ros/noetic/lib/libxmlrpcpp.so
 
 //The directory containing a CMake configuration file for message_filters.
 message_filters_DIR:PATH=/opt/ros/noetic/share/message_filters/cmake
@@ -587,7 +587,8 @@ turtlebot3_example_SOURCE_DIR:STATIC=/home/israa/catkin_ud_ii_ws/src/turtlebot3/
 //Value Computed by CMake
 turtlebot3_msgs_BINARY_DIR:STATIC=/home/israa/catkin_ud_ii_ws/build/turtlebot3_msgs
 
-turtlebot3_msgs_DIR:PATH=
+//The directory containing a CMake configuration file for turtlebot3_msgs.
+turtlebot3_msgs_DIR:PATH=/home/israa/catkin_ud_ii_ws/devel/share/turtlebot3_msgs/cmake
 
 //Value Computed by CMake
 turtlebot3_msgs_SOURCE_DIR:STATIC=/home/israa/catkin_ud_ii_ws/src/turtlebot3_msgs
@@ -770,7 +771,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=13
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

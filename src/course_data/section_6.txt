@@ -1,0 +1,219 @@
+roscore
+roslaunch turtlebot3_gazebo turtlebot3_house.launch
+roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/israa/maps/tb3_house_map.yaml
+
+
+the topics that represents the location of the robot :
+	/odom		-> the odom frame 
+	/amcl_pose	-> the map frame (global options) 
+	
+-------------------------------------------------------------------------------------------------------------------------------------
+	
+rostopic echo tf:
+	transforms: 
+	  - 
+	    header: 
+	      seq: 0
+	      stamp: 
+		secs: 2202
+		nsecs: 126000000
+	      frame_id: "odom"
+	    child_frame_id: "base_footprint"
+	    transform: 
+	      translation: 
+		x: -2.999486348296209
+		y: 1.001374468662899
+		z: -0.001007400486425062
+	      rotation: 
+		x: -8.72536454351086e-06
+		y: 0.001589631960051874
+		z: 0.004447656197224235
+		w: 0.9999888456120152
+	---
+	transforms: 
+	  - 
+	    header: 
+	      seq: 0
+	      stamp: 
+		secs: 2202
+		nsecs: 622000000
+	      frame_id: "map"
+	    child_frame_id: "odom"
+	    transform: 
+	      translation: 
+		x: -0.03390764255701231
+		y: -0.04567080841120013
+		z: 0.010540925673206846
+	      rotation: 
+		x: -7.137158405864092e-06
+		y: -0.0015896352931788122
+		z: -0.005846736483160995
+		w: 0.9999816441721279
+	---
+	transforms: 
+	  - 
+	    header: 
+	      seq: 0
+	      stamp: 
+		secs: 2202
+		nsecs: 126000000
+	      frame_id: "base_link"
+	    child_frame_id: "wheel_left_link"
+	    transform: 
+	      translation: 
+		x: 0.0
+		y: 0.144
+		z: 0.023
+	      rotation: 
+		x: -0.7067807828690992
+		y: -0.007922222641203246
+		z: -0.00792853383258649
+		w: 0.707343835561343
+	  - 
+	    header: 
+	      seq: 0
+	      stamp: 
+		secs: 2202
+		nsecs: 126000000
+	      frame_id: "base_link"
+	    child_frame_id: "wheel_right_link"
+	    transform: 
+	      translation: 
+		x: 0.0
+		y: -0.144
+		z: 0.023
+	      rotation: 
+		x: -0.7065416038118468
+		y: 0.020019958232141605
+		z: 0.02003590701237791
+		w: 0.7071044659635223
+
+---------------------------------------------------------------------------------------------------------------------------------------
+rosmsg info tf2_msgs/TFMessage 
+
+	geometry_msgs/TransformStamped[] transforms
+	  std_msgs/Header header
+	    uint32 seq
+	    time stamp
+	    string frame_id
+	  string child_frame_id
+	  geometry_msgs/Transform transform
+	    geometry_msgs/Vector3 translation
+	      float64 x
+	      float64 y
+	      float64 z
+	    geometry_msgs/Quaternion rotation
+	      float64 x
+	      float64 y
+	      float64 z
+	      float64 w
+
+------------------------------------------------------------------------------------------------------------------------------------------
+to generate the frames.pdf :
+	#rather than tf which is now deprecated so we use tf2 
+	rosrun tf2_tools view_frames.py 
+
+------------------------------------------------------------------------------------------------------------------------------------------
+It is possible to find the transformation between 2 frames using the command :
+	# transformation between source frame and the target frame 
+	rosrun tf tf_echo map odom
+	# another example is between the odom frame and camera_rgb_frame
+	rosrun tf tf_echo odom camera_rgb_frame
+	
+Note:
+	we can get the hole frames with thier relation to each other from the frames.pdf file 
+	#we should generate the frames file in the moment we want to get the relations 
+	
+if we want the transformation with a specific frequency :
+	# transformation between source frame and the target frame 
+	rosrun tf tf_echo map odom
+	
+	# this will provide 2 transformations every sec 	
+-------------------------------------------------------------------------------------------------------------------------------------
+we can also monitor using :
+	rosrun tf tf_monitor map odom
+
+-----------------------------------------------------------------------------------------------------------------------------------
+To create a transformation frames :
+	 rosrun tf static_transform_publisher 1 2 3 0.1 0.2 0.3 frame_a frame_b 10
+
+To see the relation between them :
+	rosrun tf tf_echo frame_a frame_b
+
+the launch file is :
+	<launch>
+	<nodepkg="tf" type="static_transform_publisher" name="frame_a_to_frame_b" args="1 2 3 0.1 0.2 0.3 frame_a frame_b 10" />
+	</launch>
+
+
+-----------------------------------------------------------------------------------------------
+roscd turtlebot3_slam
+will give the path in it terminal 
+the launch file of turtlebot3_slam has information about the turtle and gmapping :
+	<!-- TurtleBot3 -->
+	  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
+		    <arg name="model" value="$(arg model)" />
+  	</include>
+	
+	this is atached to the turtlebot3 model from the arguments in the top:
+	
+	  <!-- Arguments -->
+ 	 <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, 			waffle_pi]"/>
+---------------------------------------------
+then the slam method : (remember we used gmapping)
+  	<!-- SLAM: Gmapping, Cartographer, Hector, Karto, Frontier_exploration, RTAB-Map -->
+ 	 <include file="$(find turtlebot3_slam)/launch/turtlebot3_$(arg slam_methods).launch">
+ 	   <arg name="model" value="$(arg model)"/>
+  	  <arg name="configuration_basename" value="$(arg configuration_basename)"/>
+ 	 </include>
+
+	the model is also provided above in arguments:
+	  <arg name="slam_methods" default="gmapping" doc="slam type [gmapping, cartographer, hector, karto, frontier_exploration]"/>
+----------------------------------------------	 
+then the last thing is open rviz it has been set as true in the arguments :
+
+  	<arg name="configuration_basename" default="turtlebot3_lds_2d.lua"/>
+  	<arg name="open_rviz" default="true"/>
+  
+    	<!-- rviz -->
+  	<group if="$(arg open_rviz)"> 
+    	<node pkg="rviz" type="rviz" name="rviz" required="true"
+      	   args="-d $(find turtlebot3_slam)/rviz/turtlebot3_$(arg slam_methods).rviz"/>
+ 	 </group>
+  
+  
+------------------------------------------------------------------------------------  
+the turtlebot3_gmapping.launch :
+	it has values of xmin and ymin which is in the bottom left and ymax xmax in the top right -> remember that the (0,0) will be in the center of the image
+	
+parameter delta represents the resolution of the map (0.05 m) = 5 cm in slam demo as the map_file.yaml
+
+-------------------------------------------------------------------------------------------
+the turtlebot3_navigation.launch 
+roscd turtlebot3_navigation 
+	gedit turtlebot3_navigation.launch 
+	
+	Note : The Turtlebot3 Launch File Includes The Robot Model And Also Launches The State Publisher Node Not The Robots 
+	The Publisher Node Is Responsible Of Broadcasting The Frames And Transformations Of The Robot Based On The Roobot Model Defined In The Urdf
+------------------------------------	
+	it has map server which is a ros ervice 
+-------------------------------------	
+	the amcl is updated using the odometer data ,the laser scan and the information from the map 
+-------------------------------------	
+	the most importannt one is the move_base :
+		it is a ros node that implements both a global path planner that adhere to the NAV core based global planner interface spacified in the core package and a local planner that adhere to the best local planner interface specified in the core package 
+		it is responsible for finding a static path between the robot location and a goal location via the global path planner and also to execute and follow the path using the local path planner
+		the move_base node links together the global and the local path planner to accomplish its global navigation task
+	
+--------------------------------- 
+finally it has rviz setted to be true 
+
+----------------------------------------------------------
+The navigation for any other robot it mast also start similar processes namely :
+	the AMCL node
+	the move_base node 
+	the map_server node 
+	
+which are necessary for any navigation mission 
+
+

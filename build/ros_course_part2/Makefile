@@ -168,6 +168,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/rule:
+	cd /home/israa/catkin_ud_ii_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/rule
+.PHONY : ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/rule
+
+# Convenience name for target.
+simple_navigation_goals_node: ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/rule
+
+.PHONY : simple_navigation_goals_node
+
+# fast build rule for target.
+simple_navigation_goals_node/fast:
+	cd /home/israa/catkin_ud_ii_ws/build && $(MAKE) -f ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/build.make ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/build
+.PHONY : simple_navigation_goals_node/fast
+
+# Convenience name for target.
 ros_course_part2/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/israa/catkin_ud_ii_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ros_course_part2/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule
 .PHONY : ros_course_part2/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule
@@ -842,6 +857,33 @@ tf_generate_messages_nodejs/fast:
 	cd /home/israa/catkin_ud_ii_ws/build && $(MAKE) -f ros_course_part2/CMakeFiles/tf_generate_messages_nodejs.dir/build.make ros_course_part2/CMakeFiles/tf_generate_messages_nodejs.dir/build
 .PHONY : tf_generate_messages_nodejs/fast
 
+src/topic03_map_navigation/navigate_goal.o: src/topic03_map_navigation/navigate_goal.cpp.o
+
+.PHONY : src/topic03_map_navigation/navigate_goal.o
+
+# target to build an object file
+src/topic03_map_navigation/navigate_goal.cpp.o:
+	cd /home/israa/catkin_ud_ii_ws/build && $(MAKE) -f ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/build.make ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/src/topic03_map_navigation/navigate_goal.cpp.o
+.PHONY : src/topic03_map_navigation/navigate_goal.cpp.o
+
+src/topic03_map_navigation/navigate_goal.i: src/topic03_map_navigation/navigate_goal.cpp.i
+
+.PHONY : src/topic03_map_navigation/navigate_goal.i
+
+# target to preprocess a source file
+src/topic03_map_navigation/navigate_goal.cpp.i:
+	cd /home/israa/catkin_ud_ii_ws/build && $(MAKE) -f ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/build.make ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/src/topic03_map_navigation/navigate_goal.cpp.i
+.PHONY : src/topic03_map_navigation/navigate_goal.cpp.i
+
+src/topic03_map_navigation/navigate_goal.s: src/topic03_map_navigation/navigate_goal.cpp.s
+
+.PHONY : src/topic03_map_navigation/navigate_goal.s
+
+# target to generate assembly for a file
+src/topic03_map_navigation/navigate_goal.cpp.s:
+	cd /home/israa/catkin_ud_ii_ws/build && $(MAKE) -f ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/build.make ros_course_part2/CMakeFiles/simple_navigation_goals_node.dir/src/topic03_map_navigation/navigate_goal.cpp.s
+.PHONY : src/topic03_map_navigation/navigate_goal.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -851,6 +893,7 @@ help:
 	@echo "... install/strip"
 	@echo "... install"
 	@echo "... list_install_components"
+	@echo "... simple_navigation_goals_node"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
 	@echo "... actionlib_generate_messages_nodejs"
@@ -900,6 +943,9 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... actionlib_msgs_generate_messages_py"
 	@echo "... tf_generate_messages_nodejs"
+	@echo "... src/topic03_map_navigation/navigate_goal.o"
+	@echo "... src/topic03_map_navigation/navigate_goal.i"
+	@echo "... src/topic03_map_navigation/navigate_goal.s"
 .PHONY : help
 
 
